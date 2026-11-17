@@ -1,9 +1,7 @@
 package br.com.academia.api.controller;
 
-import br.com.academia.api.dto.QrTokenResponse;
 import br.com.academia.api.security.UsuarioAutenticado;
 import br.com.academia.api.service.AcademiaService;
-import br.com.academia.api.service.QrCodeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +14,9 @@ import java.util.Map;
 public class WebGestaoController {
 
     private final AcademiaService academiaService;
-    private final QrCodeService qrCodeService;
 
-    public WebGestaoController(AcademiaService academiaService, QrCodeService qrCodeService) {
+    public WebGestaoController(AcademiaService academiaService) {
         this.academiaService = academiaService;
-        this.qrCodeService = qrCodeService;
     }
 
     @GetMapping("/dashboard")
@@ -236,8 +232,4 @@ public class WebGestaoController {
         return ResponseEntity.ok(academiaService.removerExercicioTreino(user.id(), treinoId, itemId));
     }
 
-    @GetMapping("/recepcao/qrcode")
-    public ResponseEntity<QrTokenResponse> gerarQrCodeRecepcao() {
-        return ResponseEntity.ok(qrCodeService.gerarTokenRecepcao());
-    }
 }

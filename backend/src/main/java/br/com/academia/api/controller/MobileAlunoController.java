@@ -68,6 +68,6 @@ public class MobileAlunoController {
             }
         }
 
-        return ResponseEntity.ok(academiaService.realizarCheckin(user.id(), qrToken, data));
+        return ResponseEntity.ok(academiaService.realizarCheckin(user.id(), data));
     }
 }

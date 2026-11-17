@@ -19,16 +19,13 @@ import java.util.Set;
 public class AcademiaService {
 
     private final RlsQueryExecutor rlsExecutor;
-    private final QrCodeService qrCodeService;
     private final PasswordEncoder passwordEncoder;
 
     public AcademiaService(
             RlsQueryExecutor rlsExecutor,
-            QrCodeService qrCodeService,
             PasswordEncoder passwordEncoder
     ) {
         this.rlsExecutor = rlsExecutor;
-        this.qrCodeService = qrCodeService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -1170,13 +1167,8 @@ public class AcademiaService {
         });
     }
 
-    public Map<String, Object> realizarCheckin(Long userId, String qrToken, LocalDate data) {
-        boolean usandoQrCode = qrToken != null && !qrToken.isBlank();
-        if (usandoQrCode) {
-            qrCodeService.validarToken(qrToken);
-        }
-
-        String metodo = usandoQrCode ? "qrcode" : "botao";
+    public Map<String, Object> realizarCheckin(Long userId, LocalDate data) {
+        
         LocalDate dataCheckin = (data != null) ? data : LocalDate.now();
 
         return rlsExecutor.executeAsUser(userId, jdbc -> {
@@ -1190,7 +1182,7 @@ public class AcademiaService {
                     "INSERT INTO checkin (aluno_id, data, metodo) VALUES (?, ?, ?)",
                     alunoId,
                     Date.valueOf(dataCheckin),
-                    metodo
+                    "mobile"
             );
             return Map.of("mensagem", "Check-in realizado com sucesso!");
         });
