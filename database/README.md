@@ -99,21 +99,20 @@ Exemplos de todas as consultas para o backend estão em [`docs/consultas-api.sql
    Sem isso o banco devolve **zero linhas** (é o RLS protegendo).
 3. **Queries parametrizadas** (`$1`, `?`), nunca concatenar texto.
 4. **Senhas com bcrypt** no backend. O login usa `fn_login(email)`, que devolve o hash para comparar.
-5. **QR Code:** a API gera um token assinado (HMAC) que expira em 30–60 s, a tela da recepção mostra esse QR, e a API valida o token antes do `INSERT` do check-in.
 
 ### O que o banco garante sozinho
 
-| Proteção                                                   | Como                                          |
-| ---------------------------------------------------------- | --------------------------------------------- |
-| Aluno só vê os próprios dados                              | RLS em todas as tabelas                       |
-| Professor não vê financeiro e só edita os próprios treinos | RLS                                           |
-| Usuário desativado perde todo o acesso na hora             | `app_user_id()` confere `ativo`               |
-| API não cria/apaga tabelas, não apaga pagamento/aluno      | `academia_app` com menor privilégio           |
-| Ninguém (nem a API) adultera o log                         | `auditoria` sem permissão para `academia_app` |
-| Senha nunca aparece no log                                 | `senha_hash` removido na auditoria            |
-| CPF completo só para admin (LGPD)                          | `vw_alunos` mascara para professor            |
-| Check-in duplicado / sem matrícula válida                  | `UNIQUE (aluno_id, data)` + trigger           |
-| Horários certos                                            | fuso `America/Sao_Paulo`                      |
+| Proteção                                                          | Como                                          |
+| ----------------------------------------------------------------- | --------------------------------------------- |
+| Aluno só vê os próprios dados                                     | RLS em todas as tabelas                       |
+| Professor não vê financeiro, adiciona alunos e cria/edita treinos | RLS                                           |
+| Usuário desativado perde todo o acesso na hora                    | `app_user_id()` confere `ativo`               |
+| API não cria/apaga tabelas, não apaga pagamento/aluno             | `academia_app` com menor privilégio           |
+| Ninguém (nem a API) adultera o log                                | `auditoria` sem permissão para `academia_app` |
+| Senha nunca aparece no log                                        | `senha_hash` removido na auditoria            |
+| CPF completo só para admin (LGPD)                                 | `vw_alunos` mascara para professor            |
+| Check-in duplicado / sem matrícula válida                         | `UNIQUE (aluno_id, data)` + trigger           |
+| Horários certos                                                   | fuso `America/Sao_Paulo`                      |
 
 ### Limitações conhecidas (para mencionar no trabalho)
 
