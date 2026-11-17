@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Professores | FitControl</title>
+
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="professores.css" />
+
+    <script src="../api.js"></script>
+    <script src="../auth.js"></script>
+  </head>
+
+  <body>
+    <!-- MENU LATERAL -->
+
+    <aside class="sidebar">
+      <a href="../index.html" class="logo-fitcontrol">
+        <h2>FIT<span>CONTROL</span></h2>
+      </a>
+
+      <nav>
+        <a href="../index.html">Início</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../alunos/alunos.html">Alunos</a>
+        <a href="../treinos/treinos.html">Treinos</a>
+        <a href="../planos/planos.html">Planos</a>
+        <a href="professores.html" class="active">Professores</a>
+        <a href="#" id="btnSair">Sair</a>
+      </nav>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <main class="conteudo">
+      <p class="subtitulo">GESTÃO DA ACADEMIA</p>
+
+      <h1>Gerenciamento de Professores</h1>
+
+      <p class="descricao">
+        Cadastre, consulte, edite e gerencie os professores da academia.
+      </p>
+
+      <!-- ÁREA DE GERENCIAMENTO DOS PROFESSORES -->
+
+      <section class="gerenciamento-professores">
+        <div class="professores-cabecalho">
+          <h2>Professores cadastrados</h2>
+
+          <button type="button" id="btnNovoProfessor">
+            + Cadastrar professor
+          </button>
+
+          <button type="button" id="btnExcluirSelecionadosProfessores" disabled>
+            Excluir selecionados
+          </button>
+        </div>
+
+        <!-- PESQUISA DE PROFESSORES -->
+
+        <div class="professores-pesquisa">
+          <input
+            type="search"
+            id="pesquisarProfessor"
+            placeholder="Pesquisar professor pelo nome..."
+            aria-label="Pesquisar professor pelo nome"
+          />
+        </div>
+
+        <p id="statusApiProfessores" role="status" aria-live="polite"></p>
+
+        <!-- TABELA DE PROFESSORES CADASTRADOS -->
+
+        <div class="tabela-container">
+          <table class="tabela-professores">
+            <thead>
+              <tr>
+                <th>
+                  <input
+                    type="checkbox"
+                    id="selecionarTodosProfessores"
+                    aria-label="Selecionar todos os professores"
+                  />
+                </th>
+                <th>Nome</th>
+                <th>Especialidade</th>
+                <th>CREF</th>
+                <th>E-mail</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="listaProfessores"></tbody>
+          </table>
+
+          <p id="nenhumProfessor" hidden>
+            Nenhum professor encontrado. Tente pesquisar outro nome.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODAL DE CADASTRO E EDIÇÃO DE PROFESSORES -->
+
+    <div id="modalProfessor" class="modal-professor" hidden>
+      <div class="modal-professor-caixa">
+        <h2 id="tituloFormularioProfessor">Cadastrar professor</h2>
+
+        <p id="descricaoFormularioProfessor">
+          Preencha as informações do novo professor.
+        </p>
+
+        <form id="formProfessor">
+          <input type="hidden" id="professorEmEdicao" />
+
+          <label for="nomeProfessor">Nome completo</label>
+          <input type="text" id="nomeProfessor" required />
+
+          <label for="especialidadeProfessor">Especialidade</label>
+          <input
+            type="text"
+            id="especialidadeProfessor"
+            placeholder="Ex.: Musculação"
+            required
+          />
+
+          <label for="crefProfessor">CREF</label>
+          <input
+            type="text"
+            id="crefProfessor"
+            placeholder="Ex.: 123456-G/SP"
+            maxlength="20"
+            required
+          />
+
+          <label for="emailProfessor">E-mail</label>
+          <input
+            type="email"
+            id="emailProfessor"
+            required
+            oninvalid="
+              this.setCustomValidity('Inclua um @ no endereço de e-mail.')
+            "
+            oninput="
+              this.setCustomValidity(
+                this.validity.typeMismatch
+                  ? 'Inclua um @ no endereço de e-mail.'
+                  : '',
+              )
+            "
+          />
+
+          <label for="senhaProfessor" id="labelSenhaProfessor"
+            >Senha de acesso (para o login web)</label
+          >
+          <input
+            type="password"
+            id="senhaProfessor"
+            minlength="6"
+            autocomplete="new-password"
+            required
+          />
+
+          <label for="telefoneProfessor">Telefone</label>
+          <input
+            type="tel"
+            id="telefoneProfessor"
+            placeholder="(11) 99999-9999"
+            required
+          />
+
+          <label for="statusProfessor">Status</label>
+          <select id="statusProfessor" required disabled>
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+          </select>
+          <small>Novos professores são cadastrados como ativos.</small>
+
+          <p id="mensagemErroProfessor" role="alert" hidden></p>
+
+          <div class="modal-professor-acoes">
+            <button type="button" id="cancelarProfessor">Cancelar</button>
+            <button type="submit" id="salvarProfessor">Salvar professor</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONSULTA DE PROFESSORES -->
+
+    <div
+      id="modalConsultaProfessor"
+      class="modal-professor modal-consulta-padrao"
+      hidden
+    >
+      <div class="modal-professor-caixa">
+        <h2>Consultar professor</h2>
+        <p class="descricao-consulta">Informações do professor selecionado.</p>
+
+        <div class="dados-consulta">
+          <p><strong>Nome:</strong> <span id="consultaNomeProfessor"></span></p>
+          <p>
+            <strong>Especialidade:</strong>
+            <span id="consultaEspecialidadeProfessor"></span>
+          </p>
+          <p><strong>CREF:</strong> <span id="consultaCrefProfessor"></span></p>
+          <p>
+            <strong>E-mail:</strong> <span id="consultaEmailProfessor"></span>
+          </p>
+          <p>
+            <strong>Telefone:</strong>
+            <span id="consultaTelefoneProfessor"></span>
+          </p>
+          <p>
+            <strong>Status:</strong> <span id="consultaStatusProfessor"></span>
+          </p>
+        </div>
+
+        <div class="modal-professor-acoes">
+          <button
+            type="button"
+            id="fecharConsultaProfessor"
+            class="btn-fechar-consulta"
+          >
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
+
+    <div id="modalExcluirProfessor" class="modal-professor" hidden>
+      <div class="modal-professor-caixa">
+        <h2 id="tituloExcluirProfessor">Excluir professor</h2>
+        <p id="mensagemExcluirProfessor">
+          Tem certeza de que deseja excluir o professor
+          <strong id="nomeProfessorExcluir"></strong>?
+        </p>
+        <p>Esta ação não poderá ser desfeita.</p>
+
+        <div class="modal-professor-acoes">
+          <button type="button" id="cancelarExclusaoProfessor">Cancelar</button>
+          <button type="button" id="confirmarExclusaoProfessor">
+            Sim, excluir
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA -->
+
+    <div class="modal-sair" id="modalSair" hidden>
+      <div
+        class="modal-sair-conteudo"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloSair"
+        aria-describedby="descricaoSair"
+      >
+        <h2 id="tituloSair">Sair da conta</h2>
+        <p id="descricaoSair">Tem certeza de que deseja sair da sua conta?</p>
+        <p class="aviso-sair">
+          Você precisará realizar o login novamente para acessar o sistema.
+        </p>
+        <div class="acoes-sair">
+          <button type="button" id="cancelarSair">Cancelar</button>
+          <button type="button" id="confirmarSair">Sim, sair</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="professores.js"></script>
+
+    <script>
+      const btnSair = document.getElementById("btnSair");
+      const modalSair = document.getElementById("modalSair");
+      const cancelarSair = document.getElementById("cancelarSair");
+      const confirmarSair = document.getElementById("confirmarSair");
+
+      btnSair.addEventListener("click", function (event) {
+        event.preventDefault();
+        modalSair.hidden = false;
+        cancelarSair.focus();
+      });
+
+      function fecharModalSair() {
+        modalSair.hidden = true;
+        btnSair.focus();
+      }
+
+      cancelarSair.addEventListener("click", fecharModalSair);
+
+      confirmarSair.addEventListener("click", function () {
+        FitControlAPI.sair();
+        window.location.href = "../index.html";
+      });
+
+      modalSair.addEventListener("click", function (event) {
+        if (event.target === modalSair) {
+          fecharModalSair();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !modalSair.hidden) {
+          fecharModalSair();
+        }
+      });
+    </script>
+  </body>
+</html>

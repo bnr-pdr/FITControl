@@ -1,0 +1,81 @@
+FITCONTROL — FRONT-END PREPARADO PARA API (15/11/2026)
+====================================================
+
+IMPORTANTE
+- Foram alterados SOMENTE arquivos do projeto FitControl (front-end).
+- A pasta academia-app do colega (Java/SQL) NÃO foi alterada.
+- O funcionamento real requer corrigir as incompatibilidades já existentes no back-end.
+- NÃO exiba sucesso de banco nem use o CRUD local temporário para disfarçar falhas.
+
+EXECUÇÃO RECOMENDADA PARA TESTE
+1. Iniciar Docker/PostgreSQL e corrigir o back-end com seu colega.
+2. Iniciar Spring Boot na porta 8080 (a porta atual da API).
+3. Abrir src/main/webapp/index.html pelo Live Server na porta 5500.
+4. Fazer login com um usuário ADMIN existente no banco (não há senha hardcoded no JavaScript).
+5. O menu leva ao Dashboard, Alunos, Planos e Professores.
+
+Alternativa: se usar o Tomcat 8080 para servir FitControl, faça seu colega iniciar
+Spring Boot em OUTRA porta (por exemplo 8081) e altere a linha
+const API_BASE_URL = "http://localhost:8080/api";
+no arquivo src/main/webapp/api.js para http://localhost:8081/api.
+
+FUNCIONALIDADES LIGADAS À API
+- Login POST /api/auth/login, envia email e senha, armazena JWT na sessão do navegador.
+- Proteção de telas e envio de Authorization: Bearer <token> nas requisições.
+- Dashboard GET /api/web/dashboard.
+- Alunos: GET /api/web/alunos; consulta/filtragem da lista carregada do banco.
+- Planos: GET /api/web/planos; consulta/filtragem dos valores e descrições reais.
+- Cadastro: POST /api/web/alunos seguido de POST /api/web/matriculas.
+  A senha inicial digitada é enviada ao back-end para criar o acesso ao aplicativo.
+  O CPF e telefone são enviados apenas como números, CPF exige 11 dígitos,
+  CPF duplicado é rejeitado e NÃO é realizada validação matemática.
+  O status do novo aluno é sempre ATIVO no back-end atual.
+- Se criar aluno funcionar e criar matrícula falhar, a página informa o sucesso parcial
+  e alerta para NÃO cadastrar novamente. Matrícula não é transação conjunta com o cadastro.
+- Logout remove token e dados da sessão.
+
+FUNCIONALIDADES AINDA NÃO INTEGRÁVEIS POR FALTA DE ENDPOINT
+- Editar/excluir alunos: faltam PUT/PATCH/DELETE /api/web/alunos/{id}.
+- Criar/editar/excluir planos: o Java expõe apenas GET /api/web/planos.
+- Listar/criar/editar/excluir professores: o Java não expõe /api/web/professores.
+- Esses botões foram desabilitados para NÃO fingir gravações no PostgreSQL.
+- A página pública de contato mantém comportamento informativo (sem endpoint).
+
+BLOQUEIOS IDENTIFICADOS NO BACK-END ORIGINAL (PASSAR AO COLEGA)
+1. Erros de compilação Java: várias assinaturas contêm sintaxe genérica incompleta,
+   como ResponseEntity> e List> em controllers, GlobalExceptionHandler e AcademiaService.
+2. fn_login(email) (database/init/02_funcoes.sql) retorna id, nome, tipo, senha_hash.
+   AuthService.java tenta ler 'ativo', 'email' e 'perfil', que NÃO são retornados;
+   portanto o login não conclui corretamente. Corrigir no serviço ou na função SQL.
+   A resposta HTTP pode continuar com a propriedade 'perfil' usada pelo front-end.
+3. AcademiaService.cadastrarAluno insere em usuario.perfil e aluno.usuario_id,
+   mas database/init/01_schema.sql define usuario.tipo e aluno.id.
+   Corrigir as queries Java para corresponder às colunas REAIS.
+4. Há outras queries com aluno.usuario_id / professor.usuario_id que não coincidem
+   com o schema, em métodos de treino e check-in.
+5. Confirmar que RLS está configurado para o usuário de conexão e que o banco
+   foi inicializado com todos os scripts na ordem indicada pelo projeto.
+6. Se quiser edição/exclusão de alunos, CRUD de planos e CRUD de professores no banco,
+   o colega precisa criar rotas REST e serviços para as operações ausentes.
+
+ARQUIVOS MODIFICADOS/CRIADOS NO FRONT-END
+- src/main/webapp/api.js (novo)
+- src/main/webapp/auth.js
+- src/main/webapp/script.js (dashboard)
+- src/main/webapp/index.html
+- src/main/webapp/dashboard.html
+- src/main/webapp/login/login.html
+- src/main/webapp/login/login.js
+- src/main/webapp/alunos/alunos.html
+- src/main/webapp/alunos/alunos.js
+- src/main/webapp/planos/planos.html
+- src/main/webapp/planos/planos.js
+- src/main/webapp/professores/professores.html
+- src/main/webapp/professores/professores.js
+
+TESTES FEITOS
+- Sintaxe de TODOS os arquivos JavaScript validada por node --check.
+- Conferência das referências de scripts e elementos HTML com ids utilizados.
+- Requisições da API verificadas com testes de cliente HTTP simulados.
+- Testes reais end-to-end com Spring Boot/PostgreSQL não executados,
+  porque os erros acima impedem considerar o back-end pronto.

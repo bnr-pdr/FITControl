@@ -1,0 +1,519 @@
+/* CONTEÚDO DA PÁGINA DE PLANOS */
+
+.conteudo {
+    padding: 45px;
+    min-width: 0;
+}
+
+
+/* CABEÇALHO DA PÁGINA */
+
+.cabecalho {
+    margin-bottom: 35px;
+}
+
+.cabecalho h1 {
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.cabecalho p {
+    color: #929890;
+    font-size: 16px;
+}
+
+.cabecalho .subtitulo {
+    color: #e30613;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+
+/* ÁREA DE GERENCIAMENTO DOS PLANOS */
+
+.secao-planos {
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 35px;
+}
+
+
+/* CABEÇALHO DA LISTA DE PLANOS */
+
+.topo-planos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.topo-planos h2 {
+    font-size: 22px;
+    color: #ffffff;
+}
+
+
+/* BOTÃO CADASTRAR PLANO */
+
+#btnNovoPlano {
+    background: #e30613;
+    color: #ffffff;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+#btnNovoPlano:hover {
+    background: #b80510;
+}
+
+
+/* PESQUISA DE PLANOS */
+
+.pesquisa-planos {
+    margin-bottom: 25px;
+}
+
+#buscarPlano {
+    width: 100%;
+    max-width: 400px;
+    background: #101211;
+    color: #ffffff;
+    border: 1px solid #343735;
+    border-radius: 8px;
+    padding: 13px;
+    font-size: 14px;
+}
+
+/* DESTAQUE DO CAMPO DE PESQUISA */
+
+#buscarPlano:focus {
+    outline: none;
+    border-color: #e30613;
+}
+
+/* TEXTO DO CAMPO DE PESQUISA */
+
+#buscarPlano::placeholder {
+    color: #888888;
+}
+
+
+/* TABELA DE PLANOS */
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabela-container table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabela-container th,
+.tabela-container td {
+    padding: 16px;
+    border-bottom: 1px solid #343735;
+}
+
+/* CABEÇALHO DA TABELA */
+
+.tabela-container th {
+    color: #aaaaaa;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* DADOS DA TABELA */
+
+.tabela-container td {
+    color: #eeeeee;
+    font-size: 14px;
+}
+
+/* DESTAQUE DA LINHA AO PASSAR O MOUSE */
+
+.tabela-container tbody tr:hover {
+    background: #252a27;
+}
+
+
+/* BOTÕES DE AÇÃO DA TABELA */
+
+.btn-consultar,
+.btn-editar,
+.btn-excluir {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-right: 5px;
+}
+
+/* BOTÃO CONSULTAR */
+
+.btn-consultar {
+    background: #333333;
+}
+
+/* BOTÃO EDITAR */
+
+.btn-editar {
+    background: #444444;
+}
+
+/* BOTÃO EXCLUIR */
+
+.btn-excluir {
+    background: #e30613;
+}
+
+/* EFEITOS AO PASSAR O MOUSE */
+
+.btn-consultar:hover,
+.btn-editar:hover {
+    background: #555555;
+}
+
+.btn-excluir:hover {
+    background: #b80510;
+}
+
+
+/* MODAL DE PLANOS */
+
+/* FUNDO ESCURECIDO E CENTRALIZAÇÃO */
+
+.modal-plano {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+/* OCULTAR MODAL */
+
+.modal-plano[hidden] {
+    display: none !important;
+}
+
+/* CAIXA DO MODAL */
+
+.modal-conteudo {
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    color: #ffffff;
+}
+
+/* TÍTULO DO MODAL */
+
+.modal-conteudo h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+/* DESCRIÇÃO DO MODAL */
+
+.modal-conteudo p {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+
+/* FORMULÁRIO DE CADASTRO E EDIÇÃO */
+
+#formPlano {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* RÓTULOS DOS CAMPOS */
+
+#formPlano label {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* CAMPOS DE ENTRADA E SELEÇÃO */
+
+#formPlano input,
+#formPlano textarea,
+#formPlano select {
+    background: #101211;
+    color: #ffffff;
+    border: 1px solid #343735;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 14px;
+    width: 100%;
+}
+
+/* DESTAQUE DO CAMPO SELECIONADO */
+
+#formPlano input:focus,
+#formPlano textarea:focus,
+#formPlano select:focus {
+    outline: none;
+    border-color: #e30613;
+}
+
+
+/* BOTÕES DOS MODAIS */
+
+.botoes-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* CONFIGURAÇÕES GERAIS DOS BOTÕES */
+
+#cancelarPlano,
+#salvarPlano,
+#cancelarExclusaoPlano,
+#confirmarExclusaoPlano,
+#fecharConsultaPlano {
+    border: none;
+    padding: 13px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* BOTÕES DE CANCELAMENTO */
+
+#cancelarPlano,
+#cancelarExclusaoPlano {
+    background: #303331;
+}
+
+#cancelarPlano:hover,
+#cancelarExclusaoPlano:hover {
+    background: #454a47;
+}
+
+/* BOTÕES DE SALVAR, EXCLUIR E FECHAR CONSULTA */
+
+#salvarPlano,
+#confirmarExclusaoPlano,
+#fecharConsultaPlano {
+    background: #e30613;
+}
+
+#salvarPlano:hover,
+#confirmarExclusaoPlano:hover,
+#fecharConsultaPlano:hover {
+    background: #b80510;
+}
+
+
+/* MENSAGEM DE ERRO DO FORMULÁRIO */
+
+#mensagemErroPlano {
+    background: #351a1d;
+    color: #ffffff;
+    border: 1px solid #e30613;
+    border-left: 4px solid #e30613;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 5px 0 10px;
+}
+
+/* OCULTAR MENSAGEM DE ERRO */
+
+#mensagemErroPlano[hidden] {
+    display: none;
+}
+
+
+/* CONSULTA DE PLANOS */
+
+/* CAIXA DE INFORMAÇÕES DO PLANO */
+
+.dados-consulta-plano {
+    background: #101211;
+    border: 1px solid #343735;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+/* INFORMAÇÕES EXIBIDAS NA CONSULTA */
+
+.dados-consulta-plano p {
+    color: #ffffff;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.dados-consulta-plano p:last-child {
+    margin-bottom: 0;
+}
+
+/* DESTAQUE DOS RÓTULOS */
+
+.dados-consulta-plano strong {
+    color: #e30613;
+}
+
+/* PRESERVAR QUEBRAS DE LINHA DA DESCRIÇÃO */
+
+#consultaDescricaoPlano {
+    white-space: pre-wrap;
+}
+
+
+/* CONFIRMAÇÃO DE EXCLUSÃO */
+
+/* AVISO DO PLANO SELECIONADO */
+
+.aviso-exclusao-plano {
+    background: #351a1d;
+    border-left: 4px solid #e30613;
+    border-radius: 8px;
+    padding: 14px;
+    color: #ffffff !important;
+    overflow-wrap: anywhere;
+}
+
+/* DESTAQUE DO NOME DO PLANO */
+
+.aviso-exclusao-plano strong {
+    color: #ff6b73;
+}
+
+
+/* PESQUISA SEM RESULTADOS */
+
+/* OCULTAR PLANOS FILTRADOS */
+
+#listaPlanos tr[hidden] {
+    display: none;
+}
+
+/* OCULTAR MENSAGEM DE TABELA VAZIA */
+
+#mensagemSemPlanos[hidden] {
+    display: none;
+}
+
+/* ESTILO DA MENSAGEM SEM RESULTADOS */
+
+#mensagemSemPlanos td {
+    text-align: center;
+    padding: 25px;
+    color: #aaaaaa;
+    font-size: 14px;
+    font-style: italic;
+}
+
+
+/* EXCLUSÃO DE PLANOS SELECIONADOS */
+
+#btnExcluirSelecionados {
+    background: #e30613;
+    color: #ffffff;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* BOTÃO DESABILITADO */
+
+#btnExcluirSelecionados:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* EFEITO DO BOTÃO HABILITADO */
+
+#btnExcluirSelecionados:not(:disabled):hover {
+    background: #b80510;
+}
+
+
+/* LOGOTIPO FITCONTROL */
+
+.sidebar h2 {
+    color: #ffffff;
+}
+
+.sidebar h2 span {
+    color: #e30613;
+}
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    /* AJUSTAR ESPAÇAMENTO DO CONTEÚDO */
+
+    .conteudo {
+        padding: 25px;
+    }
+
+    /* ORGANIZAR CABEÇALHO EM COLUNA */
+
+    .topo-planos {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    /* ADAPTAR BOTÃO DE CADASTRO */
+
+    #btnNovoPlano {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    /* AJUSTAR ESPAÇAMENTO DA ÁREA DE PLANOS */
+
+    .secao-planos {
+        padding: 20px;
+    }
+}
+
+
+/* MENSAGEM DE CONFIRMAÇÃO DE EXCLUSÃO */
+
+#modalExcluirPlano #mensagemExcluirPlano {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}

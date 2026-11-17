@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Alunos | FitControl</title>
+
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="alunos.css" />
+
+    <script src="../api.js"></script>
+    <script src="../auth.js"></script>
+  </head>
+
+  <body>
+    <!-- MENU LATERAL -->
+
+    <aside class="sidebar">
+      <a href="../index.html" class="logo-fitcontrol">
+        <h2>FIT<span>CONTROL</span></h2>
+      </a>
+
+      <nav>
+        <a href="../index.html">Início</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="alunos.html" class="active">Alunos</a>
+        <a href="../treinos/treinos.html">Treinos</a>
+        <a href="../planos/planos.html">Planos</a>
+        <a href="../professores/professores.html">Professores</a>
+        <a href="#" id="btnSair">Sair</a>
+      </nav>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <main class="conteudo">
+      <p class="subtitulo">GESTÃO DA ACADEMIA</p>
+
+      <h1>Gerenciamento de Alunos</h1>
+
+      <p class="descricao">
+        Cadastre, consulte, edite e gerencie os alunos da academia.
+      </p>
+
+      <!-- ÁREA DE GERENCIAMENTO DOS ALUNOS -->
+
+      <section class="gerenciamento-alunos">
+        <!-- CABEÇALHO E BOTÕES DE GERENCIAMENTO -->
+
+        <div class="alunos-cabecalho">
+          <h2>Alunos cadastrados</h2>
+
+          <button type="button" id="btnNovoAluno">+ Cadastrar aluno</button>
+
+          <button type="button" id="btnExcluirSelecionadosAlunos" disabled>
+            Excluir selecionados
+          </button>
+        </div>
+
+        <!-- PESQUISA DE ALUNOS -->
+
+        <!-- PESQUISA E FILTRO DE ALUNOS -->
+
+        <div class="alunos-pesquisa">
+          <input
+            type="search"
+            id="buscarAluno"
+            placeholder="Pesquisar aluno pelo nome..."
+            aria-label="Pesquisar aluno pelo nome"
+          />
+
+          <select id="filtroStatusAluno" aria-label="Filtrar alunos por status">
+            <option value="todos">Todos os status</option>
+            <option value="ativos">Ativos</option>
+            <option value="inativos">Inativos</option>
+          </select>
+        </div>
+        <p id="statusApiAlunos" role="status" aria-live="polite"></p>
+
+        <!-- TABELA DE ALUNOS CADASTRADOS -->
+
+        <div class="tabela-container">
+          <table class="tabela-alunos">
+            <thead>
+              <tr>
+                <th>
+                  <input
+                    type="checkbox"
+                    id="selecionarTodosAlunos"
+                    aria-label="Selecionar todos os alunos"
+                  />
+                </th>
+
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Plano</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+
+            <tbody id="listaAlunos"></tbody>
+          </table>
+
+          <!-- MENSAGEM QUANDO NENHUM ALUNO FOR ENCONTRADO -->
+
+          <p id="nenhumAluno" hidden>
+            Nenhum aluno encontrado. Tente pesquisar outro nome.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODAL DE CADASTRO E EDIÇÃO DE ALUNOS -->
+
+    <div id="modalAluno" class="modal-aluno" hidden>
+      <div class="modal-aluno-caixa">
+        <h2 id="tituloFormulario">Cadastrar aluno</h2>
+
+        <p id="descricaoFormulario">Preencha os dados do novo aluno.</p>
+
+        <form id="formAluno">
+          <!-- IDENTIFICAÇÃO DO ALUNO EM EDIÇÃO -->
+
+          <input type="hidden" id="alunoEmEdicao" />
+
+          <!-- DADOS DO ALUNO -->
+
+          <label for="nomeAluno">Nome completo</label>
+          <input type="text" id="nomeAluno" required />
+
+          <label for="emailAluno">E-mail</label>
+          <input
+            type="email"
+            id="emailAluno"
+            required
+            oninvalid="
+              this.setCustomValidity('Inclua um @ no endereço de e-mail.')
+            "
+            oninput="
+              this.setCustomValidity(
+                this.validity.typeMismatch
+                  ? 'Inclua um @ no endereço de e-mail.'
+                  : '',
+              )
+            "
+          />
+
+          <label for="cpfAluno">CPF</label>
+          <input
+            type="text"
+            id="cpfAluno"
+            placeholder="000.000.000-00"
+            maxlength="14"
+            inputmode="numeric"
+            required
+          />
+
+          <label for="senhaAluno"
+            >Senha inicial do aluno (para o aplicativo)</label
+          >
+          <input
+            type="password"
+            id="senhaAluno"
+            minlength="6"
+            autocomplete="new-password"
+            required
+          />
+
+          <label for="telefoneAluno">Telefone</label>
+          <input type="tel" id="telefoneAluno" required />
+
+          <label for="planoAluno">Plano</label>
+          <select id="planoAluno" required>
+            <option value="">Selecione um plano</option>
+          </select>
+
+          <label for="statusAluno">Status</label>
+          <select id="statusAluno" required disabled>
+            <option value="Ativo">Ativo</option>
+            <option value="Inativo">Inativo</option>
+          </select>
+          <small
+            >O back-end atual cadastra novos alunos sempre como ativos.</small
+          >
+
+          <!-- MENSAGEM DE VALIDAÇÃO -->
+
+          <p id="mensagemErroAluno" role="alert" hidden></p>
+
+          <!-- BOTÕES DO FORMULÁRIO -->
+
+          <div class="modal-aluno-botoes">
+            <button type="button" id="cancelarAluno">Cancelar</button>
+
+            <button type="submit">Salvar aluno</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONSULTA DE ALUNOS -->
+
+    <div id="modalConsulta" class="modal-aluno modal-consulta-padrao" hidden>
+      <div class="modal-aluno-caixa">
+        <h2>Consultar aluno</h2>
+
+        <p class="descricao-consulta">Informações do aluno selecionado.</p>
+
+        <!-- INFORMAÇÕES DO ALUNO SELECIONADO -->
+
+        <div class="dados-consulta detalhes-aluno">
+          <p>
+            <strong>Nome:</strong>
+            <span id="consultaNome"></span>
+          </p>
+
+          <p>
+            <strong>E-mail:</strong>
+            <span id="consultaEmail"></span>
+          </p>
+
+          <p>
+            <strong>CPF:</strong>
+            <span id="consultaCpf"></span>
+          </p>
+
+          <p>
+            <strong>Telefone:</strong>
+            <span id="consultaTelefone"></span>
+          </p>
+
+          <p>
+            <strong>Plano:</strong>
+            <span id="consultaPlano"></span>
+          </p>
+
+          <p>
+            <strong>Status:</strong>
+            <span id="consultaStatus"></span>
+          </p>
+        </div>
+
+        <!-- BOTÃO FECHAR CONSULTA -->
+
+        <div class="modal-aluno-botoes">
+          <button type="button" id="fecharConsulta" class="btn-fechar-consulta">
+            Fechar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
+
+    <div id="modalExcluir" class="modal-aluno" hidden>
+      <div class="modal-aluno-caixa">
+        <h2 id="tituloExcluirAluno">Excluir aluno</h2>
+
+        <p id="mensagemExcluirAluno">
+          Tem certeza que deseja excluir o aluno
+          <strong id="nomeAlunoExcluir"></strong>?
+        </p>
+
+        <p>Esta ação não poderá ser desfeita.</p>
+
+        <!-- BOTÕES DE CONFIRMAÇÃO DE EXCLUSÃO -->
+
+        <div class="modal-aluno-botoes">
+          <button type="button" id="cancelarExclusao">Cancelar</button>
+
+          <button type="button" id="confirmarExclusao">Sim, excluir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA -->
+
+    <div class="modal-sair" id="modalSair" hidden>
+      <div
+        class="modal-sair-conteudo"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloSair"
+        aria-describedby="descricaoSair"
+      >
+        <h2 id="tituloSair">Sair da conta</h2>
+
+        <p id="descricaoSair">Tem certeza de que deseja sair da sua conta?</p>
+
+        <p class="aviso-sair">
+          Você precisará realizar o login novamente para acessar o sistema.
+        </p>
+
+        <!-- BOTÕES DE CONFIRMAÇÃO DE SAÍDA -->
+
+        <div class="acoes-sair">
+          <button type="button" id="cancelarSair">Cancelar</button>
+
+          <button type="button" id="confirmarSair">Sim, sair</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT DE GERENCIAMENTO DOS ALUNOS -->
+
+    <script src="alunos.js"></script>
+
+    <!-- JAVASCRIPT DO BOTÃO SAIR -->
+
+    <script>
+      /* ELEMENTOS DO MODAL DE SAÍDA */
+
+      const btnSair = document.getElementById("btnSair");
+      const modalSair = document.getElementById("modalSair");
+      const cancelarSair = document.getElementById("cancelarSair");
+      const confirmarSair = document.getElementById("confirmarSair");
+
+      /* ABRIR CONFIRMAÇÃO DE SAÍDA */
+
+      btnSair.addEventListener("click", function (event) {
+        event.preventDefault();
+        modalSair.hidden = false;
+        cancelarSair.focus();
+      });
+
+      /* FECHAR CONFIRMAÇÃO DE SAÍDA */
+
+      function fecharModalSair() {
+        modalSair.hidden = true;
+        btnSair.focus();
+      }
+
+      cancelarSair.addEventListener("click", fecharModalSair);
+
+      /* CONFIRMAR SAÍDA DA CONTA */
+
+      confirmarSair.addEventListener("click", function () {
+        FitControlAPI.sair();
+        window.location.href = "../index.html";
+      });
+
+      /* FECHAR MODAL AO CLICAR FORA DA JANELA */
+
+      modalSair.addEventListener("click", function (event) {
+        if (event.target === modalSair) {
+          fecharModalSair();
+        }
+      });
+
+      /* FECHAR MODAL COM A TECLA ESC */
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !modalSair.hidden) {
+          fecharModalSair();
+        }
+      });
+    </script>
+  </body>
+</html>

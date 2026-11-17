@@ -1,0 +1,678 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #101211;
+    color: #f5f5f5;
+}
+
+/* MENU SUPERIOR */
+
+header {
+    background: #171918;
+    border-bottom: 1px solid #303331;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h2 {
+    font-size: 24px;
+    color: white;
+}
+
+header h2 span {
+    color: #e30613;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+nav a {
+    color: #dddddd;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #e30613;
+}
+
+/* BOTÃO ENTRAR */
+
+#linkEntrar {
+    background: #e30613;
+    color: #ffffff;
+    padding: 12px 22px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+#linkEntrar:hover {
+    background: #b80510;
+}
+
+#linkEntrar[hidden] {
+    display: none;
+}
+
+/* MENU ADMIN */
+
+.menu-admin {
+    position: relative;
+}
+
+.menu-admin[hidden] {
+    display: none;
+}
+
+.botao-admin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #252a27;
+    color: #ffffff;
+    border: 1px solid #343735;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.botao-admin:hover,
+.botao-admin:focus-visible {
+    background: #303331;
+    border-color: #e30613;
+}
+
+.botao-admin svg {
+    width: 18px;
+    height: 18px;
+}
+
+.botao-admin svg:first-child {
+    color: #e30613;
+}
+
+/* LISTA SUSPENSA */
+
+.opcoes-admin {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 10px;
+    padding: 8px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+    z-index: 100;
+    display: none;
+}
+
+/* ÁREA PARA EVITAR FECHAMENTO AO MOVER O MOUSE */
+
+.opcoes-admin::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -8px;
+    height: 8px;
+}
+
+/* ABERTURA DO MENU */
+
+.menu-admin:hover .opcoes-admin,
+.menu-admin:focus-within .opcoes-admin,
+.menu-admin.aberto .opcoes-admin {
+    display: block;
+}
+
+/* LINKS DO MENU ADMIN */
+
+.opcoes-admin a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 7px;
+    color: #dddddd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.opcoes-admin a:hover,
+.opcoes-admin a:focus-visible {
+    background: #303331;
+    color: #ffffff;
+}
+
+.opcoes-admin a svg {
+    width: 18px;
+    height: 18px;
+    color: #aaaaaa;
+}
+
+.opcoes-admin a:hover svg,
+.opcoes-admin a:focus-visible svg {
+    color: #e30613;
+}
+
+/* APRESENTAÇÃO DA ACADEMIA */
+
+.inicio {
+    min-height: 350px;
+    padding: 80px 10%;
+    background:
+    linear-gradient(
+    90deg,
+    rgba(16, 18, 17, 0.98) 0%,
+    rgba(16, 18, 17, 0.85) 40%,
+    rgba(16, 18, 17, 0.15) 100%
+    ),
+    url("academia-fundo.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.inicio h1 {
+    font-size: 46px;
+    max-width: 550px;
+    margin-bottom: 20px;
+}
+
+.inicio h1 span {
+    color: #e30613;
+}
+
+.inicio p {
+    color: #bbbbbb;
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.inicio a {
+    display: inline-block;
+    border: 1px solid #777777;
+    border-radius: 8px;
+    padding: 13px 25px;
+    color: white;
+    text-decoration: none;
+}
+
+.inicio a:hover {
+    border-color: #e30613;
+    color: #e30613;
+}
+
+/* SEÇÃO DOS PLANOS */
+
+.planos {
+    padding: 55px 8%;
+    text-align: center;
+}
+
+.planos > h2 {
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.planos > p {
+    color: #aaaaaa;
+    margin-bottom: 40px;
+}
+
+/* CARTÕES DOS PLANOS */
+
+.lista-planos {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.plano {
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 15px;
+    padding: 30px;
+    width: 350px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.plano h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.plano p {
+    color: #aaaaaa;
+    margin-bottom: 25px;
+}
+
+.plano h2 {
+    color: #e30613;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.plano ul {
+    list-style: none;
+    margin-bottom: 35px;
+    flex-grow: 1;
+}
+
+.plano li {
+    margin-bottom: 15px;
+    color: #dddddd;
+}
+
+.plano li::before {
+    content: "✓";
+    color: #e30613;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.plano button {
+    background: #303331;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.plano button:hover {
+    background: #e30613;
+}
+
+/* PLANO MAIS POPULAR */
+
+.destaque {
+    position: relative;
+    border: 2px solid #e30613;
+    background: #291416;
+}
+
+.destaque button {
+    background: #e30613;
+}
+
+.selo-popular {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #e30613;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* ÍCONES DOS PLANOS */
+
+.cabecalho-plano {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.cabecalho-plano svg {
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+    background: #303331;
+    border-radius: 10px;
+    color: white;
+}
+
+.destaque .cabecalho-plano svg {
+    background: #542024;
+    color: #ffcccc;
+}
+
+.cabecalho-plano h3 {
+    margin-bottom: 0;
+}
+
+/* SEÇÃO SOBRE NÓS */
+
+.sobre {
+    background: #181b19;
+    padding: 90px 10%;
+}
+
+.sobre-conteudo {
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.sobre-etiqueta {
+    color: #e30613;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.sobre h2 {
+    font-size: 36px;
+    margin: 20px 0 25px;
+    line-height: 1.3;
+}
+
+.sobre h2 span {
+    color: #e30613;
+}
+
+.sobre p {
+    color: #bbbbbb;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.botao-sobre {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 14px 28px;
+    background: #e30613;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.botao-sobre:hover {
+    background: #b80510;
+}
+
+/* SEÇÃO CONTATO */
+
+.contato {
+    background: #101211;
+    padding: 90px 10%;
+}
+
+.contato-conteudo {
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.contato-etiqueta {
+    color: #e30613;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.contato h2 {
+    font-size: 36px;
+    margin: 20px 0;
+}
+
+.contato h2 span {
+    color: #e30613;
+}
+
+.contato p {
+    color: #bbbbbb;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.formulario-contato {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 12px;
+}
+
+.formulario-contato label {
+    color: #dddddd;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.formulario-contato input,
+.formulario-contato textarea {
+    width: 100%;
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 8px;
+    padding: 14px;
+    color: white;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.formulario-contato input:focus,
+.formulario-contato textarea:focus {
+    outline: none;
+    border-color: #e30613;
+}
+
+.formulario-contato button {
+    margin-top: 15px;
+    padding: 15px;
+    background: #e30613;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.formulario-contato button:hover {
+    background: #b80510;
+}
+
+/* ADAPTAÇÃO PARA CELULARES */
+
+@media (max-width: 900px) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .opcoes-admin {
+        right: 50%;
+        transform: translateX(50%);
+    }
+
+    .inicio h1 {
+        font-size: 34px;
+    }
+
+    .lista-planos {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .plano {
+        width: 100%;
+        max-width: 400px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .sobre {
+        padding: 60px 6%;
+    }
+
+    .sobre h2 {
+        font-size: 28px;
+    }
+
+    .contato {
+        padding: 60px 6%;
+    }
+
+    .contato h2 {
+        font-size: 28px;
+    }
+
+}
+
+/* MODAL DE CONFIRMAÇÃO DE SAÍDA */
+
+.modal-sair[hidden] {
+    display: none !important;
+}
+
+.modal-sair {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 20px;
+}
+
+.modal-sair-conteudo {
+    width: 100%;
+    max-width: 440px;
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 14px;
+    padding: 30px;
+    color: #ffffff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.modal-sair-conteudo h2 {
+    font-size: 23px;
+    margin-bottom: 20px;
+}
+
+.modal-sair-conteudo p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #dddddd;
+    margin-bottom: 12px;
+}
+
+.modal-sair-conteudo .aviso-sair {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.acoes-sair {
+    display: flex;
+    gap: 12px;
+}
+
+.acoes-sair button {
+    flex: 1;
+    padding: 13px 16px;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#cancelarSair {
+    background: #343735;
+    color: #ffffff;
+}
+
+#cancelarSair:hover {
+    background: #454a47;
+}
+
+#confirmarSair {
+    background: #e30613;
+    color: #ffffff;
+}
+
+#confirmarSair:hover {
+    background: #b80510;
+}
+
+@media (max-width: 480px) {
+    .modal-sair-conteudo {
+        padding: 22px;
+    }
+
+}
+
+/* BOTÃO SAIR DO MENU ADMINISTRADOR */
+
+.opcoes-admin .opcao-sair {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    border-radius: 7px;
+    color: #dddddd;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.opcoes-admin .opcao-sair:hover,
+.opcoes-admin .opcao-sair:focus-visible {
+    background: #303331;
+    color: #ffffff;
+}
+
+.opcoes-admin .opcao-sair svg {
+    width: 18px;
+    height: 18px;
+    color: #aaaaaa;
+    flex-shrink: 0;
+}
+
+.opcoes-admin .opcao-sair:hover svg,
+.opcoes-admin .opcao-sair:focus-visible svg {
+    color: #e30613;
+}

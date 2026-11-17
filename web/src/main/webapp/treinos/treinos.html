@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Treinos | FitControl</title>
+
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="stylesheet" href="treinos.css" />
+
+    <script src="../api.js"></script>
+    <script src="../auth.js"></script>
+  </head>
+
+  <body>
+    <!-- MENU LATERAL -->
+
+    <aside class="sidebar">
+      <a href="../index.html" class="logo-fitcontrol">
+        <h2>FIT<span>CONTROL</span></h2>
+      </a>
+
+      <nav>
+        <a href="../index.html">Início</a>
+        <a href="../dashboard.html">Dashboard</a>
+        <a href="../alunos/alunos.html">Alunos</a>
+        <a href="treinos.html" class="active">Treinos</a>
+        <a href="../planos/planos.html">Planos</a>
+        <a href="../professores/professores.html">Professores</a>
+        <a href="#" id="btnSair">Sair</a>
+      </nav>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <main class="conteudo">
+      <p class="subtitulo">GESTÃO DA ACADEMIA</p>
+
+      <h1>Gerenciamento de Treinos</h1>
+
+      <p class="descricao">
+        Consulte, crie e edite as fichas de treino (A, B, C) de cada aluno.
+      </p>
+
+      <!-- LISTAGEM DE ALUNOS E FICHAS -->
+
+      <section class="gerenciamento-treinos">
+        <div class="treinos-cabecalho">
+          <h2>Fichas por aluno</h2>
+        </div>
+
+        <div class="treinos-pesquisa">
+          <input
+            type="search"
+            id="buscarAlunoTreino"
+            placeholder="Pesquisar aluno pelo nome..."
+            aria-label="Pesquisar aluno pelo nome"
+          />
+        </div>
+
+        <p id="statusApiTreinos" role="status" aria-live="polite"></p>
+
+        <div class="tabela-container">
+          <table class="tabela-treinos">
+            <thead>
+              <tr>
+                <th>Aluno</th>
+                <th>Objetivo</th>
+                <th>Treinos ativos</th>
+                <th>Última atualização</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="listaAlunosTreinos"></tbody>
+          </table>
+
+          <p id="nenhumAlunoTreino" hidden>
+            Nenhum aluno encontrado. Tente pesquisar outro nome.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODAL DE CONSULTA E EDIÇÃO DE TREINOS DO ALUNO -->
+
+    <div id="modalTreinosAluno" class="modal-treino" hidden>
+      <div class="modal-treino-caixa">
+        <div class="modal-treino-topo">
+          <div>
+            <h2 id="tituloModalTreinos">Treinos do aluno</h2>
+            <p id="subtituloModalTreinos" class="descricao-modal-treino"></p>
+          </div>
+
+          <button
+            type="button"
+            id="fecharModalTreinos"
+            class="btn-fechar-topo"
+            aria-label="Fechar janela"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- SELETOR DE FICHAS (TREINO A, B, C) E CRIAÇÃO -->
+
+        <div class="barra-fichas">
+          <div id="abasTreinosAluno" class="abas-treinos" role="tablist"></div>
+
+          <div class="acoes-ficha-nova">
+            <button
+              type="button"
+              id="btnCriarProximaFicha"
+              class="btn-nova-ficha"
+            >
+              + Criar Treino A
+            </button>
+            <button
+              type="button"
+              id="btnExcluirFichaAtual"
+              class="btn-excluir-ficha"
+              hidden
+            >
+              Excluir ficha atual
+            </button>
+          </div>
+        </div>
+
+        <p id="statusModalTreino" role="status" aria-live="polite"></p>
+
+        <!-- CORPO DA FICHA SELECIONADA -->
+
+        <div id="conteudoFichaSelecionada">
+          <div class="cabecalho-ficha-ativa">
+            <div>
+              <h3 id="nomeFichaAtiva">Treino A</h3>
+              <p id="infoFichaAtiva" class="info-ficha-meta"></p>
+            </div>
+          </div>
+
+          <!-- TABELA DE EXERCÍCIOS DA FICHA -->
+
+          <div class="tabela-container">
+            <table class="tabela-exercicios-ficha">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Exercício</th>
+                  <th>Local (Grupo)</th>
+                  <th>Séries</th>
+                  <th>Repetições</th>
+                  <th>Descanso</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="listaExerciciosFicha"></tbody>
+            </table>
+
+            <p id="semExerciciosFicha" class="aviso-vazio-ficha" hidden>
+              Nenhum exercício cadastrado nesta ficha ainda. Adicione o primeiro
+              abaixo.
+            </p>
+          </div>
+
+          <!-- FORMULÁRIO PARA ADICIONAR / EDITAR EXERCÍCIO -->
+
+          <form id="formExercicioFicha" class="form-exercicio-ficha">
+            <h4 id="tituloFormExercicio">Adicionar exercício na ficha</h4>
+
+            <input type="hidden" id="itemExercicioEmEdicao" />
+
+            <div class="grade-campos-exercicio">
+              <div class="campo-grupo campo-exercicio-nome">
+                <label for="nomeExercicioInput">Exercício</label>
+                <input
+                  type="text"
+                  id="nomeExercicioInput"
+                  list="catalogoExerciciosList"
+                  placeholder="Ex.: Supino reto"
+                  required
+                />
+                <datalist id="catalogoExerciciosList"></datalist>
+              </div>
+
+              <div class="campo-grupo">
+                <label for="localExercicioInput">Local (Grupo muscular)</label>
+                <input
+                  type="text"
+                  id="localExercicioInput"
+                  list="gruposMuscularesList"
+                  placeholder="Ex.: Peito"
+                  required
+                />
+                <datalist id="gruposMuscularesList">
+                  <option value="Peito"></option>
+                  <option value="Costas"></option>
+                  <option value="Pernas"></option>
+                  <option value="Ombros"></option>
+                  <option value="Bíceps"></option>
+                  <option value="Tríceps"></option>
+                  <option value="Glúteos"></option>
+                  <option value="Abdômen"></option>
+                  <option value="Panturrilha"></option>
+                  <option value="Cardio"></option>
+                </datalist>
+              </div>
+
+              <div class="campo-grupo">
+                <label for="seriesExercicioInput">Séries</label>
+                <input
+                  type="number"
+                  id="seriesExercicioInput"
+                  min="1"
+                  max="20"
+                  value="3"
+                  required
+                />
+              </div>
+
+              <div class="campo-grupo">
+                <label for="repeticoesExercicioInput">Repetições</label>
+                <input
+                  type="text"
+                  id="repeticoesExercicioInput"
+                  placeholder="Ex.: 12 ou 8-12"
+                  maxlength="10"
+                  required
+                />
+              </div>
+
+              <div class="campo-grupo">
+                <label for="descansoExercicioInput">Descanso (seg)</label>
+                <input
+                  type="number"
+                  id="descansoExercicioInput"
+                  min="0"
+                  max="600"
+                  step="5"
+                  value="60"
+                  required
+                />
+              </div>
+            </div>
+
+            <p id="mensagemErroExercicio" role="alert" hidden></p>
+
+            <div class="botoes-form-exercicio">
+              <button type="button" id="cancelarEdicaoExercicio" hidden>
+                Cancelar edição
+              </button>
+              <button type="submit" id="btnSalvarExercicio">
+                + Adicionar exercício
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- AVISO QUANDO O ALUNO NÃO TEM NENHUMA FICHA CRIADA -->
+
+        <div id="estadoSemFichas" class="estado-sem-fichas" hidden>
+          <p>Este aluno ainda não possui nenhuma ficha de treino cadastrada.</p>
+          <p class="sub-aviso">
+            Clique em <strong>+ Criar Treino A</strong> acima para iniciar a
+            ficha a partir de hoje.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO DE FICHA -->
+
+    <div
+      id="modalConfirmarExclusaoFicha"
+      class="modal-treino modal-sobreposto"
+      hidden
+    >
+      <div class="modal-confirmacao-caixa">
+        <h2>Excluir ficha de treino</h2>
+        <p>
+          Tem certeza de que deseja excluir o
+          <strong id="nomeFichaExcluirTexto"></strong> deste aluno?
+        </p>
+        <p class="aviso-secundario">
+          Todos os exercícios vinculados a esta ficha serão removidos.
+        </p>
+
+        <div class="botoes-confirmacao">
+          <button type="button" id="cancelarExclusaoFicha">Cancelar</button>
+          <button type="button" id="confirmarExclusaoFicha">
+            Sim, excluir ficha
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA -->
+
+    <div class="modal-sair" id="modalSair" hidden>
+      <div
+        class="modal-sair-conteudo"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloSair"
+        aria-describedby="descricaoSair"
+      >
+        <h2 id="tituloSair">Sair da conta</h2>
+        <p id="descricaoSair">Tem certeza de que deseja sair da sua conta?</p>
+        <p class="aviso-sair">
+          Você precisará realizar o login novamente para acessar o sistema.
+        </p>
+        <div class="acoes-sair">
+          <button type="button" id="cancelarSair">Cancelar</button>
+          <button type="button" id="confirmarSair">Sim, sair</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="treinos.js"></script>
+
+    <script>
+      const btnSair = document.getElementById("btnSair");
+      const modalSair = document.getElementById("modalSair");
+      const cancelarSair = document.getElementById("cancelarSair");
+      const confirmarSair = document.getElementById("confirmarSair");
+
+      btnSair.addEventListener("click", function (event) {
+        event.preventDefault();
+        modalSair.hidden = false;
+        cancelarSair.focus();
+      });
+
+      function fecharModalSair() {
+        modalSair.hidden = true;
+        btnSair.focus();
+      }
+
+      cancelarSair.addEventListener("click", fecharModalSair);
+
+      confirmarSair.addEventListener("click", function () {
+        FitControlAPI.sair();
+        window.location.href = "../index.html";
+      });
+
+      modalSair.addEventListener("click", function (event) {
+        if (event.target === modalSair) {
+          fecharModalSair();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !modalSair.hidden) {
+          fecharModalSair();
+        }
+      });
+    </script>
+  </body>
+</html>

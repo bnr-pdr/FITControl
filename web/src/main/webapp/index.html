@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitControl | Academia</title>
+    <link rel="stylesheet" href="inicio.css">
+    <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js" defer></script>
+</head>
+<body>
+
+    <!-- MENU SUPERIOR -->
+    <header>
+        <h2>FIT<span>CONTROL</span></h2>
+        <nav>
+            <a href="#planos">Planos</a>
+            <a href="#sobre">Sobre nós</a>
+            <a href="#contato">Contato</a>
+
+            <!-- BOTÃO ENTRAR -->
+            <a href="login/login.html" id="linkEntrar">
+                Entrar
+            </a>
+
+            <!-- MENU ADMIN -->
+            <div class="menu-admin" id="menuAdmin" hidden>
+                <button
+                    type="button"
+                    id="botaoAdmin"
+                    class="botao-admin"
+                    aria-expanded="false"
+                    aria-controls="opcoesAdmin"
+                    aria-haspopup="true"
+                >
+                    <i data-lucide="user-round"></i>
+                    <span id="nomeFuncionario">Administrador</span>
+                    <i data-lucide="chevron-down"></i>
+                </button>
+                <div class="opcoes-admin" id="opcoesAdmin">
+                    <a href="dashboard.html">
+                        <i data-lucide="layout-dashboard"></i>
+                        Dashboard
+                    </a>
+                    <a href="alunos/alunos.html">
+                        <i data-lucide="users"></i>
+                        Alunos
+                    </a>
+                    <a href="planos/planos.html">
+                        <i data-lucide="clipboard-list"></i>
+                        Planos
+                    </a>
+                    <a href="professores/professores.html">
+                        <i data-lucide="dumbbell"></i>
+                        Professores
+                    </a>
+                    <button type="button" id="btnSairAdmin" class="opcao-sair">
+                        <i data-lucide="log-out"></i>
+                        Sair
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+
+        <!-- APRESENTAÇÃO DA ACADEMIA -->
+        <section id="inicio" class="inicio">
+            <h1>Sua evolução começa <span>aqui.</span></h1>
+            <p>
+                Estrutura completa, acompanhamento profissional
+                e planos para todos os objetivos.
+            </p>
+            <a href="#sobre">Sobre a academia</a>
+        </section>
+
+        <!-- SEÇÃO DOS PLANOS -->
+        <section id="planos" class="planos">
+            <h2>Nossos Planos</h2>
+            <p>Escolha o plano ideal para o seu objetivo.</p>
+            <div class="lista-planos">
+
+                <!-- PLANO MENSAL -->
+                <article class="plano">
+                    <div class="cabecalho-plano">
+                        <i data-lucide="calendar-days"></i>
+                        <h3>Mensal</h3>
+                    </div>
+                    <p>Flexibilidade para começar.</p>
+                    <h2>R$ 99,90</h2>
+                    <ul>
+                        <li>Acesso livre por 1 mês</li>
+                        <li>Pagamento mensal</li>
+                    </ul>
+                </article>
+
+                <!-- PLANO TRIMESTRAL -->
+                <article class="plano destaque">
+                    <span class="selo-popular">MAIS POPULAR</span>
+                    <div class="cabecalho-plano">
+                        <i data-lucide="calendar-range"></i>
+                        <h3>Trimestral</h3>
+                    </div>
+                    <p>Mais tempo para evoluir.</p>
+                    <h2>R$ 269,90</h2>
+                    <ul>
+                        <li>Acesso livre por 3 meses</li>
+                        <li>Plano com duração trimestral</li>
+                    </ul>
+                </article>
+
+                <!-- PLANO SEMESTRAL -->
+                <article class="plano">
+                    <div class="cabecalho-plano">
+                        <i data-lucide="dumbbell"></i>
+                        <h3>Semestral</h3>
+                    </div>
+                    <p>Consistência para alcançar seus objetivos.</p>
+                    <h2>R$ 499,90</h2>
+                    <ul>
+                        <li>Acesso livre por 6 meses</li>
+                        <li>Plano com duração semestral</li>
+                    </ul>
+                </article>
+
+                <!-- PLANO ANUAL -->
+                <article class="plano">
+                    <div class="cabecalho-plano">
+                        <i data-lucide="calendar-check"></i>
+                        <h3>Anual</h3>
+                    </div>
+                    <p>Um ano inteiro de evolução.</p>
+                    <h2>R$ 899,90</h2>
+                    <ul>
+                        <li>Acesso livre por 12 meses</li>
+                        <li>Plano com duração anual</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <!-- SEÇÃO SOBRE NÓS -->
+        <section id="sobre" class="sobre">
+            <div class="sobre-conteudo">
+                <span class="sobre-etiqueta">QUEM SOMOS</span>
+                <h2>
+                    Mais do que uma academia.
+                    <span>Uma nova versão de você.</span>
+                </h2>
+                <p>
+                    A FitControl nasceu com o propósito de transformar
+                    a maneira como as pessoas cuidam da saúde e
+                    alcançam seus objetivos.
+                </p>
+                <p>
+                    Oferecemos um ambiente moderno, equipamentos de
+                    qualidade e acompanhamento profissional para
+                    ajudar você em cada etapa da sua evolução.
+                </p>
+                <a href="#contato" class="botao-sobre">
+                    Entre em contato
+                </a>
+            </div>
+        </section>
+
+        <!-- SEÇÃO CONTATO -->
+        <section id="contato" class="contato">
+            <div class="contato-conteudo">
+                <span class="contato-etiqueta">FALE CONOSCO</span>
+                <h2>
+                    Estamos aqui para <span>ajudar você.</span>
+                </h2>
+                <p>
+                    Tem alguma dúvida sobre nossos planos ou serviços?
+                    Entre em contato com nossa equipe.
+                </p>
+
+                <!-- FORMULÁRIO DE CONTATO -->
+                <form class="formulario-contato" id="formContato" novalidate>
+                    <label for="nome">Nome</label>
+                    <input
+                        type="text"
+                        id="nome"
+                        name="nome"
+                        placeholder="Seu nome completo"
+                        required
+                    >
+                    <label for="email">E-mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="seuemail@exemplo.com"
+                        required
+                    >
+                    <label for="mensagem">Mensagem</label>
+                    <textarea
+                        id="mensagem"
+                        name="mensagem"
+                        placeholder="Digite sua mensagem"
+                        rows="5"
+                        required
+                    ></textarea>
+                    <button type="submit" id="btnEnviarContato">
+                        Enviar mensagem
+                    </button>
+
+                    <!-- MENSAGEM DE VALIDAÇÃO -->
+                    <p
+                        id="feedbackContato"
+                        role="status"
+                        aria-live="polite"
+                        hidden
+                    ></p>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA -->
+    <div class="modal-sair" id="modalSair" hidden>
+        <div
+            class="modal-sair-conteudo"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="tituloSair"
+            aria-describedby="descricaoSair"
+        >
+            <h2 id="tituloSair">Sair da conta</h2>
+            <p id="descricaoSair">
+                Tem certeza de que deseja sair da sua conta?
+            </p>
+            <p class="aviso-sair">
+                Você precisará realizar o login novamente
+                para acessar o sistema.
+            </p>
+            <div class="acoes-sair">
+                <button type="button" id="cancelarSair">
+                    Cancelar
+                </button>
+                <button type="button" id="confirmarSair">
+                    Sim, sair
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT DO MENU ADMIN -->
+    <script src="api.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const linkEntrar = document.getElementById("linkEntrar");
+            const menuAdmin = document.getElementById("menuAdmin");
+            const botaoAdmin = document.getElementById("botaoAdmin");
+            const btnSairAdmin = document.getElementById("btnSairAdmin");
+            const modalSair = document.getElementById("modalSair");
+            const cancelarSair = document.getElementById("cancelarSair");
+            const confirmarSair = document.getElementById("confirmarSair");
+
+            // VERIFICAR SE EXISTE LOGIN DEMONSTRATIVO
+            const usuarioLogado =
+                Boolean(sessionStorage.getItem("fitcontrolToken"));
+            if (usuarioLogado) {
+                linkEntrar.hidden = true;
+                menuAdmin.hidden = false;
+
+                // EXIBIR O NOME DO FUNCIONÁRIO CONECTADO
+                const nomeFuncionario =
+                    sessionStorage.getItem("fitcontrolNome");
+                const elementoNome =
+                    document.getElementById("nomeFuncionario");
+                elementoNome.textContent = nomeFuncionario || "Administrador";
+            } else {
+                linkEntrar.hidden = false;
+                menuAdmin.hidden = true;
+            }
+
+            // ABRIR E FECHAR POR CLIQUE
+            botaoAdmin.addEventListener("click", function () {
+                const aberto = menuAdmin.classList.toggle("aberto");
+                botaoAdmin.setAttribute(
+                    "aria-expanded",
+                    String(aberto)
+                );
+            });
+
+            // FECHAR AO CLICAR FORA
+            document.addEventListener("click", function (event) {
+                if (!menuAdmin.contains(event.target)) {
+                    menuAdmin.classList.remove("aberto");
+                    botaoAdmin.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+                }
+            });
+
+            // FECHAR AO PRESSIONAR ESC
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") {
+                    menuAdmin.classList.remove("aberto");
+                    botaoAdmin.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+                    if (!menuAdmin.hidden) {
+                        botaoAdmin.focus();
+                    }
+                }
+            });
+
+            // LOGOUT PELO MENU SUPERIOR
+            btnSairAdmin.addEventListener("click", function () {
+                modalSair.hidden = false;
+                cancelarSair.focus();
+            });
+
+            // CANCELAR SAÍDA
+            function fecharModalSair() {
+                modalSair.hidden = true;
+                btnSairAdmin.focus();
+            }
+            cancelarSair.addEventListener("click", fecharModalSair);
+
+            // CONFIRMAR SAÍDA
+            confirmarSair.addEventListener("click", function () {
+                FitControlAPI.sair();
+                window.location.href = "index.html";
+            });
+
+            // FECHAR AO CLICAR FORA DA JANELA
+            modalSair.addEventListener("click", function (event) {
+                if (event.target === modalSair) {
+                    fecharModalSair();
+                }
+            });
+
+            // FECHAR COM ESC
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape" && !modalSair.hidden) {
+                    fecharModalSair();
+                }
+            });
+
+            // ATIVAR ÍCONES LUCIDE
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+
+    <!-- JAVASCRIPT DO FORMULÁRIO FALE CONOSCO -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const formContato = document.getElementById("formContato");
+            const nomeContato = document.getElementById("nome");
+            const emailContato = document.getElementById("email");
+            const mensagemContato = document.getElementById("mensagem");
+            const feedbackContato = document.getElementById("feedbackContato");
+
+            // VALIDAR FORMULÁRIO
+            formContato.addEventListener("submit", function (event) {
+
+                // Impede o recarregamento da página
+                event.preventDefault();
+
+                // Remove espaços desnecessários
+                const nome = nomeContato.value.trim();
+                const email = emailContato.value.trim();
+                const mensagem = mensagemContato.value.trim();
+
+                // VERIFICAR CAMPOS OBRIGATÓRIOS
+                if (!nome || !email || !mensagem) {
+                    feedbackContato.textContent =
+                        "Preencha todos os campos obrigatórios.";
+                    feedbackContato.hidden = false;
+                    feedbackContato.style.color = "#ff6b6b";
+                    return;
+                }
+
+                // VALIDAR FORMATO DO E-MAIL
+                if (!emailContato.validity.valid) {
+                    feedbackContato.textContent =
+                        "Digite um endereço de e-mail válido.";
+                    feedbackContato.hidden = false;
+                    feedbackContato.style.color = "#ff6b6b";
+                    return;
+                }
+
+                // SIMULAÇÃO ATÉ A INTEGRAÇÃO COM O BACKEND
+                feedbackContato.textContent =
+                    "Formulário validado! O envio estará disponível após a integração com o servidor.";
+                feedbackContato.hidden = false;
+                feedbackContato.style.color = "#f5c542";
+
+                // Não limpa os campos porque não houve envio real
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,572 @@
+/* GERENCIAMENTO DE PROFESSORES */
+
+.gerenciamento-professores {
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 35px;
+}
+
+
+/* CABEÇALHO DA LISTA DE PROFESSORES */
+
+.professores-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.professores-cabecalho h2 {
+    color: #ffffff;
+    font-size: 22px;
+    margin: 0;
+}
+
+
+/* BOTÃO CADASTRAR PROFESSOR */
+
+#btnNovoProfessor {
+    background: #e30613;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#btnNovoProfessor:hover {
+    background: #b80510;
+}
+
+
+/* PESQUISA DE PROFESSORES */
+
+#pesquisarProfessor {
+    width: 100%;
+    max-width: 400px;
+    padding: 13px;
+    margin-bottom: 25px;
+    background: #101211;
+    color: #ffffff;
+    border: 1px solid #343735;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+/* DESTAQUE DO CAMPO DE PESQUISA */
+
+#pesquisarProfessor:focus {
+    border-color: #e30613;
+}
+
+/* TEXTO DO CAMPO DE PESQUISA */
+
+#pesquisarProfessor::placeholder {
+    color: #888888;
+}
+
+
+/* TABELA DE PROFESSORES */
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabela-professores {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tabela-professores th,
+.tabela-professores td {
+    padding: 16px;
+    border-bottom: 1px solid #343735;
+}
+
+/* CABEÇALHO DA TABELA */
+
+.tabela-professores th {
+    color: #aaaaaa;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* DADOS DA TABELA */
+
+.tabela-professores td {
+    color: #eeeeee;
+    font-size: 14px;
+}
+
+/* DESTAQUE DA LINHA AO PASSAR O MOUSE */
+
+.tabela-professores tbody tr:hover {
+    background: #252a27;
+}
+
+
+/* BOTÕES DE AÇÃO DA TABELA */
+
+.tabela-professores .btn-consultar,
+.tabela-professores .btn-editar,
+.tabela-professores .btn-excluir {
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+/* BOTÃO CONSULTAR */
+
+.tabela-professores .btn-consultar {
+    background: #333333;
+}
+
+/* BOTÃO EDITAR */
+
+.tabela-professores .btn-editar {
+    background: #444444;
+}
+
+/* BOTÃO EXCLUIR */
+
+.tabela-professores .btn-excluir {
+    background: #e30613;
+}
+
+/* EFEITOS AO PASSAR O MOUSE */
+
+.tabela-professores .btn-consultar:hover,
+.tabela-professores .btn-editar:hover {
+    background: #555555;
+}
+
+.tabela-professores .btn-excluir:hover {
+    background: #b80510;
+}
+
+
+/* PESQUISA SEM RESULTADOS */
+
+#nenhumProfessor {
+    color: #aaaaaa;
+    text-align: center;
+    padding: 25px;
+    font-size: 14px;
+}
+
+/* OCULTAR MENSAGEM QUANDO NECESSÁRIO */
+
+#nenhumProfessor[hidden] {
+    display: none;
+}
+
+
+/* MODAL DE PROFESSORES */
+
+/* FUNDO ESCURECIDO E CENTRALIZAÇÃO */
+
+.modal-professor {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+/* OCULTAR MODAL */
+
+.modal-professor[hidden] {
+    display: none !important;
+}
+
+
+/* CAIXA DO MODAL */
+
+.modal-professor-caixa {
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+/* TÍTULO DO MODAL */
+
+.modal-professor-caixa h2 {
+    color: #ffffff;
+    font-size: 24px;
+    margin: 0 0 10px;
+}
+
+/* DESCRIÇÃO DO MODAL */
+
+.modal-professor-caixa > p {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+
+/* FORMULÁRIO DE CADASTRO E EDIÇÃO */
+
+#formProfessor {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* RÓTULOS DOS CAMPOS */
+
+#formProfessor label {
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* CAMPOS DE ENTRADA E SELEÇÃO */
+
+#formProfessor input:not([type="hidden"]),
+#formProfessor select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #101211;
+    color: #ffffff;
+    border: 1px solid #343735;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+/* DESTAQUE DO CAMPO SELECIONADO */
+
+#formProfessor input:focus,
+#formProfessor select:focus {
+    outline: none;
+    border-color: #e30613;
+}
+
+
+/* MENSAGEM DE ERRO DO FORMULÁRIO */
+
+#mensagemErroProfessor {
+    background: #351a1d;
+    color: #ffffff;
+    border: 1px solid #e30613;
+    border-left: 4px solid #e30613;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 5px 0 10px;
+}
+
+/* OCULTAR MENSAGEM DE ERRO */
+
+#mensagemErroProfessor[hidden] {
+    display: none !important;
+}
+
+
+/* BOTÕES DO MODAL */
+
+.modal-professor-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* CONFIGURAÇÕES GERAIS DOS BOTÕES */
+
+#cancelarProfessor,
+#salvarProfessor,
+#fecharConsultaProfessor {
+    border: none;
+    border-radius: 8px;
+    padding: 13px 16px;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* BOTÃO CANCELAR */
+
+#cancelarProfessor {
+    background: #303331;
+}
+
+#cancelarProfessor:hover {
+    background: #454a47;
+}
+
+/* BOTÕES SALVAR E FECHAR CONSULTA */
+
+#salvarProfessor,
+#fecharConsultaProfessor {
+    background: #e30613;
+}
+
+#salvarProfessor:hover,
+#fecharConsultaProfessor:hover {
+    background: #b80510;
+}
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    /* ORGANIZAR CABEÇALHO EM COLUNA */
+
+    .professores-cabecalho {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* ADAPTAR BOTÃO DE CADASTRO */
+
+    #btnNovoProfessor {
+        width: 100%;
+    }
+
+    /* AJUSTAR CAMPO DE PESQUISA */
+
+    #pesquisarProfessor {
+        max-width: 100%;
+    }
+
+    /* AJUSTAR ESPAÇAMENTO DA ÁREA DE PROFESSORES */
+
+    .gerenciamento-professores {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* AJUSTAR ESPAÇAMENTO DO MODAL */
+
+    .modal-professor-caixa {
+        padding: 20px;
+    }
+
+    /* ORGANIZAR BOTÕES EM COLUNA */
+
+    .modal-professor-acoes {
+        flex-direction: column;
+    }
+
+    /* BOTÕES OCUPANDO TODA A LARGURA */
+
+    #cancelarProfessor,
+    #salvarProfessor,
+    #fecharConsultaProfessor {
+        width: 100%;
+    }
+}
+
+
+/* MODAL DE EXCLUSÃO DE PROFESSORES */
+
+/* LARGURA DA CAIXA DE CONFIRMAÇÃO */
+
+#modalExcluirProfessor .modal-professor-caixa {
+    max-width: 450px;
+}
+
+/* TÍTULO DA CONFIRMAÇÃO */
+
+#modalExcluirProfessor h2 {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+/* MENSAGENS DE CONFIRMAÇÃO */
+
+#modalExcluirProfessor p {
+    color: #aaaaaa;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: normal;
+    margin-bottom: 25px;
+}
+
+/* DESTAQUE DO NOME DO PROFESSOR */
+
+#modalExcluirProfessor #nomeProfessorExcluir {
+    color: #ffffff;
+    overflow-wrap: anywhere;
+}
+
+/* ORGANIZAÇÃO DOS BOTÕES DE EXCLUSÃO */
+
+#modalExcluirProfessor .modal-professor-acoes {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+#modalExcluirProfessor .modal-professor-acoes button {
+    flex: 1;
+    padding: 13px;
+}
+
+/* BOTÃO CANCELAR EXCLUSÃO */
+
+#cancelarExclusaoProfessor {
+    background: #343735;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+}
+
+/* BOTÃO CONFIRMAR EXCLUSÃO */
+
+#confirmarExclusaoProfessor {
+    background: #e30613;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* EFEITOS DOS BOTÕES DE EXCLUSÃO */
+
+#cancelarExclusaoProfessor:hover {
+    background: #454947;
+}
+
+#confirmarExclusaoProfessor:hover {
+    background: #b80510;
+}
+
+
+/* PADRONIZAÇÃO DOS BOTÕES COM A PÁGINA DE PLANOS */
+
+/* CABEÇALHO DOS PROFESSORES */
+
+.professores-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.professores-cabecalho h2 {
+    font-size: 22px;
+    color: #ffffff;
+}
+
+/* BOTÃO CADASTRAR PROFESSOR */
+
+#btnNovoProfessor {
+    background: #e30613;
+    color: #ffffff;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: auto;
+}
+
+#btnNovoProfessor:hover {
+    background: #b80510;
+}
+
+
+/* BOTÃO EXCLUIR SELECIONADOS */
+
+#btnExcluirSelecionadosProfessores {
+    background: #e30613;
+    color: #ffffff;
+    border: none;
+    padding: 13px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* BOTÃO DESABILITADO */
+
+#btnExcluirSelecionadosProfessores:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* EFEITO DO BOTÃO HABILITADO */
+
+#btnExcluirSelecionadosProfessores:not(:disabled):hover {
+    background: #b80510;
+}
+
+
+/* RESPONSIVIDADE DOS BOTÕES */
+
+@media (max-width: 768px) {
+
+    /* ORGANIZAR CABEÇALHO EM COLUNA */
+
+    .professores-cabecalho {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    /* ADAPTAR BOTÃO DE CADASTRO */
+
+    #btnNovoProfessor {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    /* ADAPTAR BOTÃO DE EXCLUSÃO MÚLTIPLA */
+
+    #btnExcluirSelecionadosProfessores {
+        width: 100%;
+    }
+}
+
+
+/* DESTAQUE DA QUANTIDADE NA EXCLUSÃO MÚLTIPLA */
+
+#mensagemExcluirProfessor .quantidade-professores-excluir {
+    color: #e30613;
+    font-weight: bold;
+}
+
+
+/* OCULTAR PROFESSORES FILTRADOS NA PESQUISA */
+
+#listaProfessores tr[hidden] {
+    display: none;
+}

@@ -1,0 +1,4 @@
+# Scripts shell rodam dentro do container Linux: precisam de LF
+*.sh   text eol=lf
+*.sql  text eol=lf
+*.yml  text eol=lf

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | FitControl</title>
+
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <!-- CONTEÚDO PRINCIPAL DO LOGIN -->
+
+    <main class="login-container">
+
+        <section class="login-caixa">
+
+            <!-- LOGOTIPO FITCONTROL -->
+
+            <a href="../index.html" class="login-logo">
+                FIT<span>CONTROL</span>
+            </a>
+
+            <!-- APRESENTAÇÃO -->
+
+            <h1>Bem-vindo de volta!</h1>
+
+            <p>Acesse sua conta para continuar.</p>
+
+            <!-- FORMULÁRIO DE LOGIN -->
+
+            <form id="formLogin">
+
+                <!-- CAMPO DE E-MAIL -->
+
+                <label for="email">E-mail</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Digite seu e-mail"
+                    autocomplete="username"
+                    required
+                    oninvalid="this.setCustomValidity('Inclua um @ no endereço de e-mail.')"
+                    oninput="this.setCustomValidity(this.validity.typeMismatch ? 'Inclua um @ no endereço de e-mail.' : '')"
+                >
+
+                <!-- CAMPO DE SENHA -->
+
+                <label for="senha">Senha</label>
+
+                <div class="campo-senha">
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+                    <!-- MOSTRAR OU OCULTAR SENHA -->
+
+                    <button type="button" id="mostrarSenha">
+                        Mostrar
+                    </button>
+
+                </div>
+
+                <!-- BOTÃO DE ENTRAR -->
+
+                <button type="submit" class="botao-entrar">
+                    Entrar
+                </button>
+
+            </form>
+
+            <!-- MODAL DE AVISO DO LOGIN -->
+
+            <div id="modalLogin" class="modal-overlay" hidden>
+
+                <div
+                    class="modal-caixa"
+                    role="alertdialog"
+                    aria-modal="true"
+                    aria-labelledby="modalTitulo"
+                    aria-describedby="modalDescricao"
+                >
+
+                    <div class="modal-icone">i</div>
+
+                    <h2 id="modalTitulo">Autenticação em breve</h2>
+
+                    <p id="modalDescricao">
+                        Estamos preparando o acesso ao FitControl.
+                        Essa funcionalidade estará disponível em breve.
+                    </p>
+
+                    <!-- FECHAR MODAL -->
+
+                    <button type="button" id="fecharModal">
+                        Entendi
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- VOLTAR PARA A PÁGINA INICIAL -->
+
+            <a href="../index.html" class="voltar-inicio">
+                Voltar para o início
+            </a>
+
+        </section>
+
+    </main>
+
+    <!-- JAVASCRIPT DO LOGIN -->
+
+    <script src="../api.js"></script>
+    <script src="login.js"></script>
+
+</body>
+</html>

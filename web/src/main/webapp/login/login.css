@@ -1,0 +1,256 @@
+/* CONFIGURAÇÕES GERAIS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #101211;
+    color: white;
+}
+
+
+/* CENTRALIZAÇÃO DO LOGIN */
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+}
+
+
+/* CAIXA DE LOGIN */
+
+.login-caixa {
+    width: 100%;
+    max-width: 430px;
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+}
+
+
+/* LOGOTIPO FITCONTROL */
+
+.login-logo {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-logo span {
+    color: #e30613;
+}
+
+
+/* TÍTULOS E DESCRIÇÃO */
+
+.login-caixa h1 {
+    font-size: 27px;
+    margin-bottom: 10px;
+}
+
+.login-caixa p {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+
+/* FORMULÁRIO DE LOGIN */
+
+#formLogin {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 12px;
+}
+
+#formLogin label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #dddddd;
+}
+
+#formLogin input {
+    width: 100%;
+    padding: 14px;
+    background: #101211;
+    border: 1px solid #343735;
+    border-radius: 8px;
+    color: white;
+    font-size: 15px;
+}
+
+#formLogin input:focus {
+    outline: none;
+    border-color: #e30613;
+}
+
+
+/* CAMPO DE SENHA */
+
+.campo-senha {
+    position: relative;
+}
+
+.campo-senha input {
+    padding-right: 90px;
+}
+
+/* BOTÃO MOSTRAR OU OCULTAR SENHA */
+
+#mostrarSenha {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #bbbbbb;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+#mostrarSenha:hover {
+    color: white;
+}
+
+
+/* BOTÃO ENTRAR */
+
+.botao-entrar {
+    margin-top: 15px;
+    padding: 15px;
+    background: #e30613;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.botao-entrar:hover {
+    background: #b80510;
+}
+
+
+/* VOLTAR AO INÍCIO */
+
+.voltar-inicio {
+    display: inline-block;
+    margin-top: 25px;
+    color: #aaaaaa;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.voltar-inicio:hover {
+    color: #e30613;
+}
+
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 480px) {
+    .login-caixa {
+        padding: 30px 20px;
+    }
+
+    .login-caixa h1 {
+        font-size: 23px;
+    }
+}
+
+
+/* MENSAGEM PERSONALIZADA DO LOGIN */
+
+/* FUNDO ESCURECIDO DO MODAL */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+/* OCULTAR MODAL */
+
+.modal-overlay[hidden] {
+    display: none;
+}
+
+/* CAIXA DO MODAL */
+
+.modal-caixa {
+    width: 100%;
+    max-width: 380px;
+    background: #1b1e1c;
+    border: 1px solid #343735;
+    border-radius: 15px;
+    padding: 35px 30px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* ÍCONE DO MODAL */
+
+.modal-icone {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #542024;
+    color: #ff424b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* TÍTULO E DESCRIÇÃO DO MODAL */
+
+.modal-caixa h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.modal-caixa p {
+    color: #bbbbbb;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+/* BOTÃO FECHAR MODAL */
+
+#fecharModal {
+    width: 100%;
+    padding: 14px;
+    background: #e30613;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#fecharModal:hover {
+    background: #b80510;
+}

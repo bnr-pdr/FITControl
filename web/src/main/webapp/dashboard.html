@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Dashboard | FitControl</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="api.js"></script>
+    <script src="auth.js"></script>
+  </head>
+
+  <body>
+    <!-- MENU LATERAL -->
+
+    <aside class="sidebar">
+      <a href="index.html" class="logo-fitcontrol">
+        <h2>FIT<span>CONTROL</span></h2>
+      </a>
+
+      <nav>
+        <a href="index.html">Início</a>
+        <a href="dashboard.html" class="ativo">Dashboard</a>
+        <a href="alunos/alunos.html">Alunos</a>
+        <a href="treinos/treinos.html">Treinos</a>
+        <a href="planos/planos.html">Planos</a>
+        <a href="professores/professores.html">Professores</a>
+        <a href="#" id="btnSair">Sair</a>
+      </nav>
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <main class="conteudo">
+      <p class="subtitulo">GESTÃO DA ACADEMIA</p>
+
+      <h1>Dashboard</h1>
+
+      <p class="descricao">
+        Bem-vindo ao sistema de gerenciamento da FitControl.
+      </p>
+
+      <!-- INDICADORES DA ACADEMIA -->
+
+      <section class="cartoes">
+        <!-- TOTAL DE ALUNOS -->
+
+        <article class="cartao">
+          <p>Total de alunos</p>
+          <h2 id="totalAlunos">0</h2>
+        </article>
+
+        <!-- PLANOS ATIVOS -->
+
+        <article class="cartao">
+          <p>Matrículas ativas</p>
+          <h2 id="totalPlanosAtivos">0</h2>
+        </article>
+
+        <!-- TOTAL DE PROFESSORES -->
+
+        <article class="cartao">
+          <p>Professores</p>
+          <h2 id="totalProfessores">0</h2>
+        </article>
+      </section>
+    </main>
+
+    <!-- MODAL DE CONFIRMAÇÃO DE SAÍDA -->
+
+    <div class="modal-sair" id="modalSair" hidden>
+      <div
+        class="modal-sair-conteudo"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloSair"
+        aria-describedby="descricaoSair"
+      >
+        <h2 id="tituloSair">Sair da conta</h2>
+
+        <p id="descricaoSair">Tem certeza de que deseja sair da sua conta?</p>
+
+        <p class="aviso-sair">
+          Você precisará realizar o login novamente para acessar o sistema.
+        </p>
+
+        <div class="acoes-sair">
+          <button type="button" id="cancelarSair">Cancelar</button>
+
+          <button type="button" id="confirmarSair">Sim, sair</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT PRINCIPAL -->
+
+    <script src="script.js"></script>
+
+    <!-- JAVASCRIPT DO MODAL DE LOGOUT -->
+
+    <script>
+      // ELEMENTOS DO MODAL
+
+      const btnSair = document.getElementById("btnSair");
+      const modalSair = document.getElementById("modalSair");
+      const cancelarSair = document.getElementById("cancelarSair");
+      const confirmarSair = document.getElementById("confirmarSair");
+
+      // ABRIR CONFIRMAÇÃO DE SAÍDA
+
+      btnSair.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        modalSair.hidden = false;
+        cancelarSair.focus();
+      });
+
+      // FECHAR MODAL DE SAÍDA
+
+      function fecharModalSair() {
+        modalSair.hidden = true;
+        btnSair.focus();
+      }
+
+      // CANCELAR SAÍDA
+
+      cancelarSair.addEventListener("click", fecharModalSair);
+
+      // CONFIRMAR SAÍDA
+
+      confirmarSair.addEventListener("click", function () {
+        FitControlAPI.sair();
+
+        window.location.href = "index.html";
+      });
+
+      // FECHAR AO CLICAR FORA DO MODAL
+
+      modalSair.addEventListener("click", function (event) {
+        if (event.target === modalSair) {
+          fecharModalSair();
+        }
+      });
+
+      // FECHAR AO PRESSIONAR ESC
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && !modalSair.hidden) {
+          fecharModalSair();
+        }
+      });
+    </script>
+  </body>
+</html>
