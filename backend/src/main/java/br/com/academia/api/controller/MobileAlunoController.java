@@ -55,10 +55,6 @@ public class MobileAlunoController {
             @AuthenticationPrincipal UsuarioAutenticado user,
             @RequestBody(required = false) Map<String, Object> body
     ) {
-        String qrToken = (body != null && body.get("qrToken") != null)
-                ? body.get("qrToken").toString()
-                : null;
-
         LocalDate data = null;
         if (body != null && body.get("data") != null && !body.get("data").toString().isBlank()) {
             try {

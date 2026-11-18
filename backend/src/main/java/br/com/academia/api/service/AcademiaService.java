@@ -1168,7 +1168,6 @@ public class AcademiaService {
     }
 
     public Map<String, Object> realizarCheckin(Long userId, LocalDate data) {
-        
         LocalDate dataCheckin = (data != null) ? data : LocalDate.now();
 
         return rlsExecutor.executeAsUser(userId, jdbc -> {
@@ -1179,10 +1178,9 @@ public class AcademiaService {
             );
 
             jdbc.update(
-                    "INSERT INTO checkin (aluno_id, data, metodo) VALUES (?, ?, ?)",
+                    "INSERT INTO checkin (aluno_id, data, metodo) VALUES (?, ?, 'botao')",
                     alunoId,
-                    Date.valueOf(dataCheckin),
-                    "mobile"
+                    Date.valueOf(dataCheckin)
             );
             return Map.of("mensagem", "Check-in realizado com sucesso!");
         });

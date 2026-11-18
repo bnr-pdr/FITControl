@@ -27,8 +27,10 @@ const btnExcluirSelecionadosAlunos = document.getElementById(
 );
 const selecionarTodosAlunos = document.getElementById("selecionarTodosAlunos");
 
-const ehAdmin =
-  (sessionStorage.getItem("fitcontrolPerfil") || "").toLowerCase() === "admin";
+const perfilLogado = (
+  sessionStorage.getItem("fitcontrolPerfil") || ""
+).toLowerCase();
+const ehAdmin = perfilLogado === "admin" || perfilLogado === "professor";
 
 let alunosDoBanco = [];
 let planosDoBanco = [];
